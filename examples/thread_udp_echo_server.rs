@@ -1,12 +1,12 @@
 use std::{net::UdpSocket, thread};
 
-const MTU_LEN: u32 = 1500;
+use network_programming_rs::MTU_LEN;
 
 fn main() {
     let socket = UdpSocket::bind("0.0.0.0:8080").expect("Could not bind socket");
 
     loop {
-        let mut buf = [0u8, MTU_LEN as u8];
+        let mut buf = [0u8; MTU_LEN];
         let sock = socket.try_clone().expect("Filed to clone socket");
         match socket.recv_from(&mut buf) {
             Ok((_, src)) => {

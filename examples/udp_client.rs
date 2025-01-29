@@ -1,34 +1,26 @@
+use network_programming_rs::MTU_LEN;
 use std::{
-    io::{self, BufRead, BufReader, Write},
-    net::TcpStream,
+    io::{self, BufRead, BufReader, Read, Write},
+    net::{TcpStream, UdpSocket},
     str,
     time::Duration,
 };
 
 fn main() {
-    let mut stream = TcpStream::connect("127.0.0.1:8080").expect("Could not connect to server");
-    stream.set_read_timeout(Some(Duration::from_secs(3)));
+    let socket = UdpSocket::bind("127.0.0.1:9090").unwrap();
+
+    socket.connect("127.0.0.1:8080").unwrap();
 
     loop {
         let mut input = String::new();
-        let mut buffer: Vec<u8> = Vec::new();
+        let mut buf = [0u8; MTU_LEN];
 
-        io::stdin()
-            .read_line(&mut input)
-            .expect("Failed to read from stdin");
+        io::stdin().read_line(&mut input).unwrap();
+        socket.send(input.as_bytes()).unwrap();
+        socket.recv_from(&mut buf).unwrap();
 
-        stream
-            .write(input.as_bytes())
-            .expect("Failed to write to server");
+        let received_str = std::str::from_utf8(&buf).unwrap();
 
-        let mut reader = BufReader::new(&stream);
-        reader
-            .read_until(b'\n', &mut buffer)
-            .expect("Could not read into buffer");
-
-        println!(
-            "{}",
-            str::from_utf8(&buffer).expect("Could not write buffer as string")
-        );
+        println!("Received: {}", received_str);
     }
 }

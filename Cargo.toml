@@ -3,10 +3,10 @@ name = "network-programming-rs"
 version = "0.1.0"
 edition = "2021"
 
-
 [dependencies]
+ipnetwork = "0.21.1"
+mio = { version = "1.0.3", features = ["log", "net", "os-ext", "os-poll"] }
 rand = "0.8.5"
-
 
 [[example]]
 name = "thread_tcp_echo_server"
@@ -19,3 +19,9 @@ name = "thread_udp_echo_server"
 
 [[example]]
 name = "udp_client"
+
+[[example]]
+name = "udp_multicast"
+
+[[example]]
+name = "ipnetwork_showcase"
