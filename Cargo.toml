@@ -7,6 +7,10 @@ edition = "2021"
 ipnetwork = "0.21.1"
 mio = { version = "1.0.3", features = ["log", "net", "os-ext", "os-poll"] }
 rand = "0.8.5"
+serde = "1.0"
+serde_derive = "1.0"
+serde_json = "1.0"
+serde_yaml = "0.9"
 
 [[example]]
 name = "thread_tcp_echo_server"
@@ -25,3 +29,6 @@ name = "udp_multicast"
 
 [[example]]
 name = "ipnetwork_showcase"
+
+[[example]]
+name = "serde_showcase"

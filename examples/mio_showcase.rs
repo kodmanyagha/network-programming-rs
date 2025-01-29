@@ -10,8 +10,8 @@ struct TCPServer {
 }
 
 impl TCPServer {
-    pub fn new(port: u32) -> Self {
-        let address = format!("0.0.0.0:{port}").parse::<SocketAddr>().unwrap();
+    pub fn new(host: &str, port: u32) -> Self {
+        let address = format!("{host}:{port}").parse::<SocketAddr>().unwrap();
         TCPServer { address }
     }
 
@@ -48,6 +48,6 @@ fn main() {
         std::process::exit(1);
     }
 
-    let mut server = TCPServer::new(args[1].parse::<u32>().unwrap());
+    let mut server = TCPServer::new("127.0.0.1", args[1].parse::<u32>().unwrap());
     server.run();
 }
