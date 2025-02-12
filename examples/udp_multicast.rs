@@ -20,7 +20,7 @@ fn main() {
     } else {
         let socket = UdpSocket::bind((any, 0)).unwrap();
         socket
-            .send_to("hello world!!!".as_bytes(), &(mcast_group, port))
+            .send_to("hello world!!!".as_bytes(), (mcast_group, port))
             .unwrap();
     }
 }

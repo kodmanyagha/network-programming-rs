@@ -18,7 +18,7 @@ fn handle_client(mut stream: TcpStream) -> Result<(), Error> {
         }
 
         let sleep_duration =
-            Duration::from_secs([2, 3, 4, 5, 6].choose(&mut thread_rng()).unwrap().clone() as u64);
+            Duration::from_secs(*[2, 3, 4, 5, 6].choose(&mut thread_rng()).unwrap() as u64);
 
         println!("Sleeping for {:?} seconds before replying", sleep_duration);
         thread::sleep(sleep_duration);
@@ -35,7 +35,7 @@ fn handle_client(mut stream: TcpStream) -> Result<(), Error> {
         }
         // println!("");
 
-        stream.write(&buf[..bytes_read_cnt]);
+        let _ = stream.write_all(&buf[..bytes_read_cnt]);
     }
 }
 

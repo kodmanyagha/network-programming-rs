@@ -12,7 +12,7 @@ fn main() {
             Ok((_, src)) => {
                 thread::spawn(move || {
                     println!("Handling connection from {}", src);
-                    sock.send_to(&buf, &src).expect("Failed to send a response");
+                    sock.send_to(&buf, src).expect("Failed to send a response");
                 });
             }
             Err(e) => {

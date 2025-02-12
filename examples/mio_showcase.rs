@@ -1,5 +1,5 @@
 extern crate mio;
-use std::{env, fmt::format, net::SocketAddr};
+use std::{env, net::SocketAddr};
 
 use mio::{net::TcpListener, Events, Interest, Poll, Token};
 
